@@ -121,6 +121,12 @@ class X402Guard:
             self.settle(payment, payer)
         return None, payment
 
+def load_json_key(keyfile: str, passphrase: str) -> bytes:
+    """Decrypt an Ethereum keystore v3 file to a raw private key."""
+    import json as _json
+    with open(keyfile) as f:
+        return Account.decrypt(_json.load(f), passphrase)
+
 # --- Framework helpers -------------------------------------------------------
 
 def flask_guard(guard: X402Guard):
